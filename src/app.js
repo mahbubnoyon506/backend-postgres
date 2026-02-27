@@ -3,6 +3,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoute')
 const instituteRoutes = require('./routes/instituteRoutes')
 const studentRoutes = require('./routes/studentRoutes')
+const courseRoutes = require('./routes/courseRoutes')
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/auth', authRoutes)
 app.use('/api/institutes', instituteRoutes)
 app.use('/api/students', studentRoutes)
+app.use('/api/courses', courseRoutes)
 
 //Health check
 app.get('/', (req, res) => {
