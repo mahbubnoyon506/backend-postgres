@@ -4,7 +4,7 @@ const sequelize = require("../config/db");
 
 const Result = sequelize.define('Result', {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
         autoIncrement: true
     },

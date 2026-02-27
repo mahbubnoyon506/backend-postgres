@@ -1,5 +1,5 @@
 
-const { Course, Result } = require('../models');
+const { Course } = require('../models');
 
 exports.createCourse = async (req, res) => {
     try {
@@ -58,12 +58,3 @@ exports.updateCourse = async (req, res) => {
     }
 }
 
-exports.addResult = async (req, res) => {
-    try {
-        const { studentId, courseId, grade, semester } = req.body;
-        const result = await Result.create({ studentId, courseId, grade, semester })
-        res.status(201).json(result)
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}

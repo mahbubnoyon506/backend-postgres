@@ -32,7 +32,12 @@ exports.getAllStudents = async (req, res) => {
             order: [['createdAt', 'DESC']]
         })
 
-        res.json({ totalItems: count, data: rows })
+        res.json({
+            totalItems: count,
+            totalPage: Math.ceil(count / limit),
+            currentPage: page,
+            data: rows
+        })
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
