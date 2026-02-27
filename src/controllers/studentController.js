@@ -37,3 +37,47 @@ exports.getAllStudents = async (req, res) => {
         res.status(500).json({ error: error.message })
     }
 }
+
+exports.deleteStudent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Student.destroy({ where: { id } })
+        if (deleted) {
+            return res.status(201).json({ message: 'Student deleted successfully' })
+        }
+        throw new Error('Student not found')
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+exports.updateStudent = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ error: "Student ID is required" });
+        }
+
+        const { name, email, instituteId } = req.body;
+
+        const student = await Student.findByPk(id);
+        if (!student) {
+            return res.status(404).json({ error: 'Student not found' })
+        }
+
+        if (instituteId) {
+            const institute = await Institute.findByPk(instituteId)
+            if (!institute) return res.status(404).json({ error: 'Target institute not found' })
+        }
+
+        await student.update({
+            name: name || student.name,
+            email: email || student.email,
+            instituteId: instituteId || student.instituteId
+        })
+        res.status(201).json({ message: 'Student updated successfully', data: student })
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
