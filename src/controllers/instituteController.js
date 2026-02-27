@@ -23,7 +23,7 @@ exports.getAllInstitutes = async (req, res) => {
             order: [['createdAt', 'DESC']]
         })
 
-        res.json({
+        res.status(201).json({
             totalItems: count,
             totalPages: Math.ceil(count / limit),
             currentPage: page,
