@@ -1,4 +1,4 @@
-const { Institute } = require("../models");
+const { Institute, Student, Result, Course } = require("../models");
 
 
 exports.createInstitute = async (req, res) => {
@@ -64,3 +64,32 @@ exports.updateInstitute = async (req, res) => {
         res.status(500).json({ error: error.message })
     }
 }
+
+exports.getInstituteResults = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const instituteData = await Institute.findByPk(id, {
+            include: [{
+                model: Student,
+                attributes: ['id', 'name', 'email'],
+                include: [{
+                    model: Result,
+                    attributes: ['grade', 'semester'],
+                    include: [{
+                        model: Course,
+                        attributes: ['title', 'code']
+                    }]
+                }]
+            }]
+        });
+
+        if (!instituteData) {
+            return res.status(404).json({ error: "Institute not found" });
+        }
+
+        res.status(201).json(instituteData);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
