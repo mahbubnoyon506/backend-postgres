@@ -18,6 +18,13 @@ const Student = sequelize.define('Student', {
         unique: true,
         validate: { isEmail: true }
     }
-}, { timestamps: true })
+}, {
+    timestamps: true, indexes: [
+        {
+            unique: false,
+            fields: ['name']
+        }
+    ]
+})
 
 module.exports = Student;

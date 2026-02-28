@@ -15,6 +15,12 @@ const Course = sequelize.define('Course', {
         type: DataTypes.STRING,
         unique: true
     }
-}, { timestamps: true })
+}, {
+    timestamps: true, indexes: [
+        {
+            fields: ['title']
+        }
+    ]
+})
 
 module.exports = Course

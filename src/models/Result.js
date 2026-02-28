@@ -15,6 +15,11 @@ const Result = sequelize.define('Result', {
     semester: {
         type: DataTypes.STRING,
     }
-}, { timestamps: true })
+}, {
+    timestamps: true, indexes: [
+        { fields: ['studentId'] },
+        { fields: ['courseId'] }
+    ]
+})
 
 module.exports = Result

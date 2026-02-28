@@ -15,6 +15,13 @@ const Institute = sequelize.define('Institute', {
     location: {
         type: DataTypes.STRING
     }
-}, { timestamps: true });
+}, {
+    timestamps: true, indexes: [
+        {
+            unique: false,
+            fields: ['name']
+        }
+    ]
+});
 
 module.exports = Institute
