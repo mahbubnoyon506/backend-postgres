@@ -106,7 +106,7 @@ src/
 1. **Clone the repo**:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mahbubnoyon506/backend-postgres
 
 ```
 

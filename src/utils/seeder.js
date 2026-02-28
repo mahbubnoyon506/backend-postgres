@@ -37,7 +37,7 @@ const seedData = async () => {
         }
         const allStudents = await Student.bulkCreate(studentData, { chunk: 5000, returning: ['id'] });
 
-        // 4. Seed Results
+        // Seed Results
         const resultData = [];
         for (let i = 0; i < count; i++) {
             resultData.push({
