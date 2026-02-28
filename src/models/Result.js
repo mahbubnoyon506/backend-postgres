@@ -5,8 +5,8 @@ const sequelize = require("../config/db");
 const Result = sequelize.define('Result', {
     id: {
         type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        autoIncrement: true
     },
     grade: {
         type: DataTypes.FLOAT,
