@@ -7,5 +7,6 @@ router.post('/', authMiddleware, resultController.addResult);
 router.get('/', resultController.getAllResults);
 router.put('/:id', authMiddleware, resultController.updateResult);
 router.delete('/:id', authMiddleware, resultController.deleteResult);
+router.get('/top-ranking', resultController.getTopStudents);
 
 module.exports = router

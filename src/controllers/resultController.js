@@ -1,4 +1,4 @@
-const { Result, Student, Course } = require("../models");
+const { Result, Student, Course, sequelize } = require("../models");
 
 exports.addResult = async (req, res) => {
     try {
@@ -69,3 +69,28 @@ exports.deleteResult = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.getTopStudents = async (req, res) => {
+    try {
+        const topStudents = await Student.findAll({
+            attributes: [
+                'id',
+                'name',
+                'email',
+                [sequelize.fn('AVG', sequelize.col('Results.grade')), 'averageGrade']
+            ],
+            include: [{
+                model: Result,
+                attributes: []
+            }],
+            group: ['Student.id', 'Student.name', 'Student.email'],
+            order: [[sequelize.literal('"averageGrade"'), 'DESC']],
+            limit: 10,
+            subQuery: false
+        });
+
+        res.json(topStudents);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
